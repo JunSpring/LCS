@@ -11,7 +11,7 @@ LCS::LCS()
 
 LCS::~LCS()
 {
-    if(is_new)
+    if (is_new)
     {
         for (int i = 0; i < x.size(); i++)
         {
@@ -25,7 +25,7 @@ LCS::~LCS()
 
 bool LCS::setXY()
 {
-    cout << "ê¸°ì¡´ DNA: ";
+    cout << "±âÁ¸ DNA: ";
     cin >> x;
     try
     {
@@ -33,13 +33,13 @@ bool LCS::setXY()
     }
     catch (vector<char> texts)
     {
-        for (auto &text: texts)
+        for (auto& text : texts)
             cout << text << ' ';
-        cout << "ëŠ” ACGT ì´ì™¸ì˜ ë¬¸ìžìž…ë‹ˆë‹¤.";
+        cout << "´Â ACGT ÀÌ¿ÜÀÇ ¹®ÀÚÀÔ´Ï´Ù.";
         return false;
     }
 
-    cout << "ë¹„êµ DNA: ";
+    cout << "ºñ±³ DNA: ";
     cin >> y;
     try
     {
@@ -47,17 +47,17 @@ bool LCS::setXY()
     }
     catch (vector<char> texts)
     {
-        for (auto &text: texts)
+        for (auto& text : texts)
             cout << text << ' ';
-        cout << "ëŠ” ACGT ì´ì™¸ì˜ ë¬¸ìžìž…ë‹ˆë‹¤.";
+        cout << "´Â ACGT ÀÌ¿ÜÀÇ ¹®ÀÚÀÔ´Ï´Ù.";
         return false;
     }
 
     x.insert(0, "0");
     y.insert(0, "0");
 
-    c = new int *[x.size()];
-    b = new int *[x.size()];
+    c = new int* [x.size()];
+    b = new int* [x.size()];
     for (int i = 0; i < x.size(); i++)
     {
         c[i] = new int[y.size()];
@@ -72,7 +72,7 @@ void LCS::checkACGT(string gene)
 {
     vector<char> original;
 
-    for (auto &text: gene)
+    for (auto& text : gene)
         original.push_back(text);
 
     sort(original.begin(), original.end());
@@ -110,11 +110,13 @@ void LCS::LCS_Length()
             {
                 c[i][j] = c[i - 1][j - 1] + 1;
                 b[i][j] = LU;
-            } else if (c[i - 1][j] >= c[i][j - 1])
+            }
+            else if (c[i - 1][j] >= c[i][j - 1])
             {
                 c[i][j] = c[i - 1][j];
                 b[i][j] = U;
-            } else
+            }
+            else
             {
                 c[i][j] = c[i][j - 1];
                 b[i][j] = L;
@@ -137,7 +139,8 @@ void LCS::PRINT_CS(int i, int j)
     {
         PRINT_CS(i - 1, j - 1);
         cout << x.at(i);
-    } else if (b[i][j] == U)
+    }
+    else if (b[i][j] == U)
         PRINT_CS(i - 1, j);
     else
         PRINT_CS(i, j - 1);
@@ -146,10 +149,10 @@ void LCS::PRINT_CS(int i, int j)
 void LCS::PRINT_LCS()
 {
     if (sml == 0)
-        cout << "ìœ ì‚¬ë„ ì—†ìŒ";
+        cout << "À¯»çµµ ¾øÀ½";
     else
     {
-        cout << "ìœ ì‚¬ë„ = " << sml << ", LCS = ";
+        cout << "À¯»çµµ = " << sml << ", LCS = ";
         PRINT_CS(i_LCS, j_LCS);
     }
 }

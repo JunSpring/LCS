@@ -25,8 +25,8 @@ private:
     string x;
     string y;
 
-    int **c;
-    int **b;
+    int** c;
+    int** b;
     bool is_new;
 
     int i_LCS;

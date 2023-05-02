@@ -7,7 +7,7 @@ int main()
 {
     LCS lcs;
 
-    if(!lcs.setXY())
+    if (!lcs.setXY())
         return 0;
     lcs.LCS_Length();
     lcs.PRINT_LCS();
