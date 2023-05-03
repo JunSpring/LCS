@@ -4,19 +4,19 @@
 
 #include "LCS.h"
 
-// ìƒì„±ì
+// »ı¼ºÀÚ
 LCS::LCS()
 {
-    is_new = false; // ë™ì í• ë‹¹ í•˜ì§€ ì•Šì€ ìƒíƒœ
+    is_new = false; // µ¿ÀûÇÒ´ç ÇÏÁö ¾ÊÀº »óÅÂ
 }
 
-// ì†Œë©¸ì
+// ¼Ò¸êÀÚ
 LCS::~LCS()
 {
-    // ì†Œë©¸í•  ë•Œ ë™ì í• ë‹¹ì„ í–ˆì„ ê²½ìš°
-    if(is_new)
+    // ¼Ò¸êÇÒ ¶§ µ¿ÀûÇÒ´çÀ» ÇßÀ» °æ¿ì
+    if (is_new)
     {
-        // ë™ì í• ë‹¹ í•´ì œ
+        // µ¿ÀûÇÒ´ç ÇØÁ¦
         for (int i = 0; i < x.size(); i++)
         {
             delete[] c[i];
@@ -27,87 +27,103 @@ LCS::~LCS()
     }
 }
 
-// x, y ìœ ì „ì ì„¤ì •í•¨ìˆ˜
+// x, y À¯ÀüÀÚ ¼³Á¤ÇÔ¼ö
 bool LCS::setXY()
 {
-    // x ìœ ì „ì ì…ë ¥
-    cout << "ê¸°ì¡´ DNA: ";
+    // x À¯ÀüÀÚ ÀÔ·Â
+    cout << "±âÁ¸ DNA: ";
     cin >> x;
-    // ì˜ˆì™¸ì²˜ë¦¬
+    // ¿¹¿ÜÃ³¸®
     try
     {
         checkACGT(x);
     }
-    catch (vector<char> texts)
+    catch (vector<char> texts)              // ACGT ¿¹¿ÜÃ³¸®
     {
         for (auto &text: texts)
             cout << text << ' ';
-        cout << "ëŠ” ACGT ì´ì™¸ì˜ ë¬¸ìì…ë‹ˆë‹¤.";
+        cout << "´Â ACGT ÀÌ¿ÜÀÇ ¹®ÀÚÀÔ´Ï´Ù.";
+        return false;
+    }
+    catch (unsigned long long int length)   // ¹®ÀÚ ±æÀÌ ¿¹¿ÜÃ³¸®
+    {
+        cout << "ÀÔ·ÂÇÏ½Å ¹®ÀÚ¿­ÀÇ ±æÀÌ´Â " << length <<"ÀÚÀÔ´Ï´Ù." << endl;
+        cout << "ÀÔ·Â ¹®ÀÚ¿­Àº ÃÖ¼Ò 10ÀÚ ÀÌ»óÀÌ¿©¾ß ÇÕ´Ï´Ù.";
         return false;
     }
 
-    // y ìœ ì „ì ì…ë ¥
-    cout << "ë¹„êµ DNA: ";
+    // y À¯ÀüÀÚ ÀÔ·Â
+    cout << "ºñ±³ DNA: ";
     cin >> y;
-    // ì˜ˆì™¸ì²˜ë¦¬
+    // ¿¹¿ÜÃ³¸®
     try
     {
         checkACGT(y);
     }
-    catch (vector<char> texts)
+    catch (vector<char> texts)              // ACGT ¿¹¿ÜÃ³¸®
     {
-        for (auto &text: texts)
+        for (auto& text : texts)
             cout << text << ' ';
-        cout << "ëŠ” ACGT ì´ì™¸ì˜ ë¬¸ìì…ë‹ˆë‹¤.";
+        cout << "´Â ACGT ÀÌ¿ÜÀÇ ¹®ÀÚÀÔ´Ï´Ù.";
+        return false;
+    }
+    catch (unsigned long long int length)   // ¹®ÀÚ ±æÀÌ ¿¹¿ÜÃ³¸®
+    {
+        cout << "ÀÔ·ÂÇÏ½Å ¹®ÀÚ¿­ÀÇ ±æÀÌ´Â " << length <<"ÀÚÀÔ´Ï´Ù." << endl;
+        cout << "ÀÔ·Â ¹®ÀÚ¿­Àº ÃÖ¼Ò 10ÀÚ ÀÌ»óÀÌ¿©¾ß ÇÕ´Ï´Ù.";
         return false;
     }
 
-    // x, y ë¬¸ìì—´ ë§¨ ì•ì— ì•„ë¬´ ê°’ insert
+    // x, y ¹®ÀÚ¿­ ¸Ç ¾Õ¿¡ ¾Æ¹« °ª insert
     x.insert(0, "0");
     y.insert(0, "0");
 
-    // ë™ì í• ë‹¹
-    c = new int *[x.size()];
-    b = new int *[x.size()];
+    // µ¿ÀûÇÒ´ç
+    c = new int* [x.size()];
+    b = new int* [x.size()];
     for (int i = 0; i < x.size(); i++)
     {
         c[i] = new int[y.size()];
         b[i] = new int[y.size()];
     }
-    is_new = true; // ë™ì í• ë‹¹ í•œ ìƒíƒœ
+    is_new = true; // µ¿ÀûÇÒ´ç ÇÑ »óÅÂ
 
     return true;
 }
 
-// ACGT ë¬¸ìì—´ ì˜ˆì™¸ì²˜ë¦¬ í•¨ìˆ˜
+// ACGT ¹®ÀÚ¿­ ¿¹¿ÜÃ³¸® ÇÔ¼ö
 void LCS::checkACGT(string gene)
 {
-    // ë²¡í„° ì„ ì–¸
+    // ¹®ÀÚ¿­ ±æÀÌ°¡ 10 ÀÌÇÏ¶ó¸é ¹®ÀÚ¿­ ±æÀÌ throw
+    if(gene.size() < 10)
+        throw gene.size();
+
+    // º¤ÅÍ ¼±¾ğ
     vector<char> original;
 
-    // string ê°’ì„ ë²¡í„°ì— ëŒ€ì…
-    for (auto &text: gene)
+    // string °ªÀ» º¤ÅÍ¿¡ ´ëÀÔ
+    for (auto& text : gene)
         original.push_back(text);
 
-    // ì •ë ¬
+    // Á¤·Ä
     sort(original.begin(), original.end());
-    // ê°’ì´ ì¤‘ë³µë˜ì§€ ì•Šê²Œ ì •ë ¬í•˜ê³  ì¤‘ë³µë˜ëŠ” ë¶€ë¶„ ì§€ìš°ê¸°
+    // °ªÀÌ Áßº¹µÇÁö ¾Ê°Ô Á¤·ÄÇÏ°í Áßº¹µÇ´Â ºÎºĞ Áö¿ì±â
     original.erase(unique(original.begin(), original.end()), original.end());
 
-    // ACGT ì§€ìš°ê¸°
+    // ACGT Áö¿ì±â
     original.erase(remove(original.begin(), original.end(), 'A'), original.end());
     original.erase(remove(original.begin(), original.end(), 'C'), original.end());
     original.erase(remove(original.begin(), original.end(), 'G'), original.end());
     original.erase(remove(original.begin(), original.end(), 'T'), original.end());
 
-    // ë²¡í„°ê°€ ë¹„ì–´ìˆì§€ ì•Šë‹¤ë©´
+    // º¤ÅÍ°¡ ºñ¾îÀÖÁö ¾Ê´Ù¸é
     if (!original.empty())
-        // ë²¡í„° throw
+        // º¤ÅÍ throw
         throw original;
 }
 
-// LCS íƒìƒ‰ì„ ìœ„í•œ c, b ë°°ì—´ ì„¤ì •í•¨ìˆ˜
-// ì´ í•¨ìˆ˜ëŠ” ê°•ì˜ìë£Œì™€ ë™ì¼
+// LCS Å½»öÀ» À§ÇÑ c, b ¹è¿­ ¼³Á¤ÇÔ¼ö
+// ÀÌ ÇÔ¼ö´Â °­ÀÇÀÚ·á¿Í µ¿ÀÏ
 void LCS::LCS_Length()
 {
     int m = x.size() - 1;
@@ -129,11 +145,13 @@ void LCS::LCS_Length()
             {
                 c[i][j] = c[i - 1][j - 1] + 1;
                 b[i][j] = LU;
-            } else if (c[i - 1][j] >= c[i][j - 1])
+            }
+            else if (c[i - 1][j] >= c[i][j - 1])
             {
                 c[i][j] = c[i - 1][j];
                 b[i][j] = U;
-            } else
+            }
+            else
             {
                 c[i][j] = c[i][j - 1];
                 b[i][j] = L;
@@ -141,8 +159,8 @@ void LCS::LCS_Length()
         }
 }
 
-// CS ì¶œë ¥
-// ì´ í•¨ìˆ˜ëŠ” ê°•ì˜ìë£Œì™€ ë™ì¼
+// CS Ãâ·Â
+// ÀÌ ÇÔ¼ö´Â °­ÀÇÀÚ·á¿Í µ¿ÀÏ
 void LCS::PRINT_CS(int i, int j)
 {
     if (i == 0 || j == 0)
@@ -151,22 +169,23 @@ void LCS::PRINT_CS(int i, int j)
     {
         PRINT_CS(i - 1, j - 1);
         cout << x.at(i);
-    } else if (b[i][j] == U)
+    }
+    else if (b[i][j] == U)
         PRINT_CS(i - 1, j);
     else
         PRINT_CS(i, j - 1);
 }
 
-// LCS ì¶œë ¥
+// LCS Ãâ·Â
 void LCS::PRINT_LCS()
 {
-    // ìœ ì‚¬ë„ê°€ ì—†ëŠ” ê²½ìš°
-    if (c[x.size()-1][y.size()-1] == 0)
-        cout << "ìœ ì‚¬ë„ ì—†ìŒ";
-    // ìœ ì‚¬ë„ê°€ ìˆëŠ” ê²½ìš°
+    // À¯»çµµ°¡ ¾ø´Â °æ¿ì
+    if (c[x.size() - 1][y.size() - 1] == 0)
+        cout << "À¯»çµµ ¾øÀ½";
+    // À¯»çµµ°¡ ÀÖ´Â °æ¿ì
     else
     {
-        cout << "ìœ ì‚¬ë„ = " << c[x.size()-1][y.size()-1] << ", LCS = ";
-        PRINT_CS(x.size()-1, y.size()-1);
+        cout << "À¯»çµµ = " << c[x.size() - 1][y.size() - 1] << ", LCS = ";
+        PRINT_CS(x.size() - 1, y.size() - 1);
     }
 }

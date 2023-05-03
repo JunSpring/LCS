@@ -13,12 +13,12 @@
 using namespace std;
 
 // enum
-// ë°©í–¥ enum
+// ¹æÇâ enum
 enum dir
 {
-    LU, // ì™¼ìª½ ìœ„ ëŒ€ê°ì„ 
-    U,  // ìœ„
-    L   // ì™¼ìª½
+    LU, // ¿ŞÂÊ À§ ´ë°¢¼±
+    U,  // À§
+    L   // ¿ŞÂÊ
 };
 
 // class
@@ -26,27 +26,27 @@ enum dir
 class LCS
 {
 private:
-    string x;       // x ìœ ì „ì
-    string y;       // y ìœ ì „ì
+    string x;       // x À¯ÀüÀÚ
+    string y;       // y À¯ÀüÀÚ
 
-    int **c;        // c ì´ì°¨ì› ë°°ì—´ í¬ì¸í„°
-    int **b;        // b ì´ì°¨ì› ë°°ì—´ í¬ì¸í„°
-    bool is_new;    // ë™ì‘í• ë‹¹ ì—¬ë¶€
+    int** c;        // c ÀÌÂ÷¿ø ¹è¿­ Æ÷ÀÎÅÍ
+    int** b;        // b ÀÌÂ÷¿ø ¹è¿­ Æ÷ÀÎÅÍ
+    bool is_new;    // µ¿ÀÛÇÒ´ç ¿©ºÎ
 
 public:
-    LCS();                      // ìƒì„±ì
+    LCS();                      // »ı¼ºÀÚ
 
-    ~LCS();                     // ì†Œë©¸ì
+    ~LCS();                     // ¼Ò¸êÀÚ
 
-    bool setXY();               // x, y ìœ ì „ì ì„¤ì •í•¨ìˆ˜
+    bool setXY();               // x, y À¯ÀüÀÚ ¼³Á¤ÇÔ¼ö
 
-    void checkACGT(string);     // ACGT ë¬¸ìì—´ ì˜ˆì™¸ì²˜ë¦¬ í•¨ìˆ˜
+    void checkACGT(string);     // ACGT ¹®ÀÚ¿­ ¿¹¿ÜÃ³¸® ÇÔ¼ö
 
-    void LCS_Length();          // LCS íƒìƒ‰ì„ ìœ„í•œ c, b ë°°ì—´ ì„¤ì •í•¨ìˆ˜
+    void LCS_Length();          // LCS Å½»öÀ» À§ÇÑ c, b ¹è¿­ ¼³Á¤ÇÔ¼ö
 
-    void PRINT_CS(int, int);    // CS ì¶œë ¥
+    void PRINT_CS(int, int);    // CS Ãâ·Â
 
-    void PRINT_LCS();           // LCS ì¶œë ¥
+    void PRINT_LCS();           // LCS Ãâ·Â
 };
 
 
