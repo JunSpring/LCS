@@ -12,41 +12,41 @@
 
 using namespace std;
 
+// enum
+// 방향 enum
 enum dir
 {
-    LU,
-    U,
-    L
+    LU, // 왼쪽 위 대각선
+    U,  // 위
+    L   // 왼쪽
 };
 
+// class
+// LCS class
 class LCS
 {
 private:
-    string x;
-    string y;
+    string x;       // x 유전자
+    string y;       // y 유전자
 
-    int **c;
-    int **b;
-    bool is_new;
-
-    int i_LCS;
-    int j_LCS;
-    int sml;
+    int **c;        // c 이차원 배열 포인터
+    int **b;        // b 이차원 배열 포인터
+    bool is_new;    // 동작할당 여부
 
 public:
-    LCS();
+    LCS();                      // 생성자
 
-    ~LCS();
+    ~LCS();                     // 소멸자
 
-    bool setXY();
+    bool setXY();               // x, y 유전자 설정함수
 
-    void checkACGT(string);
+    void checkACGT(string);     // ACGT 문자열 예외처리 함수
 
-    void LCS_Length();
+    void LCS_Length();          // LCS 탐색을 위한 c, b 배열 설정함수
 
-    void PRINT_CS(int, int);
+    void PRINT_CS(int, int);    // CS 출력
 
-    void PRINT_LCS();
+    void PRINT_LCS();           // LCS 출력
 };
 
 
